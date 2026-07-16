@@ -1,8 +1,8 @@
-import com.kh.IndexSearch.Index;
-import com.kh.RAMSearch.Ram;
-import com.kh.hardDiskSearch.HardDisk;
+import com.kh.search.Index;
+import com.kh.search.Ram;
+import com.kh.search.HardDisk;
 
-import strategy.SearchStrategy;
+import com.kh.search.SearchStrategy;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -43,6 +43,12 @@ public class Main {
         System.out.println("Enter file name:");
         String input = scanner.nextLine();
 
+        if (input.isBlank()) {
+            System.out.println("" +
+                    "Please enter a file name");
+            scanner.close();
+            return;
+        }
         long start = System.currentTimeMillis();
         List<Path> results = strategy.search(input);
         long end = System.currentTimeMillis();
