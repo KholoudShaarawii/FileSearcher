@@ -1,4 +1,4 @@
-package com.kh.IndexSearch;
+package com.kh.Indexsearch;
 
 import strategy.SearchStrategy;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class Index implements SearchStrategy {
 
-    Map <String  , List<Path>> index =  new HashMap<>();
+    private Map<String, List<Path>> index = new HashMap<>();
 
     public Index() {
 //building index
@@ -39,26 +39,35 @@ public class Index implements SearchStrategy {
                         //functionalInterface + Lambda
                         index.computeIfAbsent(fileName, K -> new ArrayList<>()).add(file);
 
-                      //  String[] tokens = fileName.split("[\\.\\-_\\s]+");
+                        //  String[] tokens = fileName.split("[\\.\\-_\\s]+");
 
-                       /* for (String token : tokens) {
+                       /*for (String token : tokens) {
                             index.computeIfAbsent(token, K -> new ArrayList<>()).add(file);
 
                         }*/
                         return FileVisitResult.CONTINUE;
                     }
+
                     @Override
                     public FileVisitResult visitFileFailed(Path file, IOException exc) {
                         return FileVisitResult.CONTINUE;
                     }
                 });
-            } catch (IOException e) {}}}
+            } catch (IOException e) {
+            }
+        }
+    }
+
     @Override
-    public List<Path> search (String FileName) {
+    public List<Path> search(String fileName) {
+        List<Path> results = new ArrayList<>();
 
-         String lower=FileName.toLowerCase();
+        for (String name : index.keySet()) {
+            if (name.contains(fileName.toLowerCase())) {
+                results.addAll(index.get(name));
+            }
+        }
 
-        // getOrDefault
-        return index.get(lower);
-    }
-    }
+        return results;
+
+}}

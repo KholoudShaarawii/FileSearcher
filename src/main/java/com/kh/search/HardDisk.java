@@ -1,4 +1,4 @@
-package com.kh.hardDiskSearch;
+package com.kh.harddisksearch;
 
 import strategy.SearchStrategy;
 
@@ -37,7 +37,8 @@ public class HardDisk implements SearchStrategy {
                         return FileVisitResult.CONTINUE;
                     }
                 });
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
         }
 
         return result;
